@@ -1,8 +1,13 @@
-import matplotlib.pyplot as plt
-from jax import jit, vmap, lax
+'''Script does parallel tempering MCMC.'''
+
+
+from jax import jit, vmap
 import jax.numpy as jnp
 import jax.random as jr
 import numpy as np
+
+
+
 
 # Parallel tempering swap
 def PT_swap(num_chains,
@@ -40,8 +45,9 @@ def PT_swap(num_chains,
         samples[j, iteration + 1] = states[swap_map[j]]
         # lnposts[j, iteration + 1] = lnposts[swap_map[j], iteration] * temp_ladder[swap_map[j]] / temp_ladder[j]
         lnposts[j, iteration + 1] = lnpost_func(samples[j, iteration + 1], temperature=temp_ladder[j])
-    
+
     return
+
 
 
 def PTMCMC(num_samples,
@@ -159,6 +165,7 @@ def PTMCMC(num_samples,
 
     # compute jump proposal acceptance rates
     acceptance_rates = accept_counts / (accept_counts + reject_counts)
+    print('Jump acceptance rates')
     for name, rate in zip(jump_names, acceptance_rates):
         print(f'{name}: {rate}')
 
