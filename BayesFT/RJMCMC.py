@@ -59,7 +59,7 @@ def RJMCMC(num_samples,
     # if no temperature ladder provided, use geometric spacing
     chain_ndx = np.arange(num_chains)
     if temp_ladder is None:
-        c = 1.1
+        c = 1.2
         temp_ladder = c**chain_ndx
 
     # vectorize posterior function
