@@ -292,5 +292,15 @@ for br in branch_names:
         tr = None
     else:
         tr = truths[br]
-    plt.figure(); fig = corner.corner(input_to_plot, labels=labels[br], truths=tr); 
+    plt.figure(); fig = corner.corner(input_to_plot, labels=labels[br], truths=tr,
+                bins=40,
+                levels=(1 - np.exp(-0.5), 1 - np.exp(-2), 1 - np.exp(-9 / 2.)),
+                plot_density=False,
+                plot_datapoints=False,
+                fill_contours=False,
+                show_titles=False,
+                # max_n_ticks=3,
+                # truth_color='k',
+                # labelpad=0.3,
+                )
     plt.savefig(br + 'corner.pdf'); plt.close('all')
